@@ -55,86 +55,86 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Produtos",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "Catalogo",
+          url: "/dashboard/catalogo",
+        },
+        {
+          title: "Editar",
           url: "#",
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
+          title: "Novo Produto",
           url: "#",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Categorias",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "Genesis",
+          title: "Lista de Categorias",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Editar Categorias",
           url: "#",
         },
         {
-          title: "Quantum",
+          title: "Nova Categoria",
           url: "#",
         },
       ],
     },
     {
-      title: "Documentation",
+      title: "Clientes",
       url: "#",
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
+          title: "Lsita de Clientes",
           url: "#",
         },
         {
-          title: "Get Started",
+          title: "Editar Cliente",
           url: "#",
         },
         {
-          title: "Tutorials",
+          title: "Novo Cliente",
           url: "#",
         },
         {
-          title: "Changelog",
+          title: "Relatórios",
           url: "#",
         },
       ],
     },
     {
-      title: "Settings",
+      title: "Pedidos",
       url: "#",
       icon: Settings2,
       items: [
         {
-          title: "General",
+          title: "Lista de Pedidos",
           url: "#",
         },
         {
-          title: "Team",
+          title: "Detalhes do Pedido",
           url: "#",
         },
         {
-          title: "Billing",
+          title: "Relatórios de vendas",
           url: "#",
         },
         {
-          title: "Limits",
+          title: "Ultimos pedidos",
           url: "#",
         },
       ],
