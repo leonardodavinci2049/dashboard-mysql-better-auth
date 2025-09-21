@@ -1,5 +1,5 @@
 {
-  "name": "next-dashboard-2025",
+  "name": "dashboard-mysql",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -32,6 +32,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.544.0",
+    "mysql2": "^3.15.0",
     "next": "15.5.3",
     "next-themes": "^0.4.6",
     "react": "19.1.0",
@@ -39,6 +40,7 @@
     "recharts": "^2.15.4",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
+    "uuid": "^13.0.0",
     "vaul": "^1.1.2",
     "zod": "^4.1.11"
   },
