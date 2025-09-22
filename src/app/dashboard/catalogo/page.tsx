@@ -8,7 +8,7 @@ import { useProductFilter } from "../../../hooks/dashboard/product/catalog/usePr
 import {
   mockProducts,
   mockCategories,
-} from "../../mock/dashboard/product/catalog/mock-data";
+} from "../../../mock/dashboard/mocked-statistics-data";
 import { ViewMode } from "../../../types/dashboard/product/catalog/types";
 
 export default function CatalogoPage() {

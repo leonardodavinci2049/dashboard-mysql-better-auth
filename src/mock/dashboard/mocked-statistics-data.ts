@@ -1,7 +1,4 @@
-import {
-  Product,
-  Category,
-} from "../../../../../types/dashboard/product/catalog/types";
+import { Product, Category } from "../../types/dashboard/product/catalog/types";
 
 export const mockCategories: Category[] = [
   { id: "all", name: "Todas as Categorias", slug: "all" },
