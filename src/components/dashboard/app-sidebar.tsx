@@ -16,11 +16,11 @@ import {
   SquareTerminal,
 } from "lucide-react";
 
-import { NavMain } from "@/components/dashboard/componentes/sidebar/nav-main";
-import { NavProjects } from "@/components/dashboard/componentes/sidebar/nav-projects";
-import { NavSecondary } from "@/components/dashboard/componentes/sidebar/nav-secondary";
-import { NavUser } from "@/components/dashboard/componentes/sidebar/nav-user";
-import { TeamSwitcher } from "@/components/dashboard/componentes/sidebar/team-switcher";
+import { NavMain } from "@/components/dashboard/common/sidebar/nav-main";
+import { NavProjects } from "@/components/dashboard/common/sidebar/nav-projects";
+import { NavSecondary } from "@/components/dashboard/common/sidebar/nav-secondary";
+import { NavUser } from "@/components/dashboard/common/sidebar/nav-user";
+import { TeamSwitcher } from "@/components/dashboard/common/sidebar/team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -32,9 +32,10 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "Admin",
+    email: "admin@dashboard.com",
+    avatar:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop&crop=face",
   },
   teams: [
     {
@@ -65,7 +66,7 @@ const data = {
           url: "/dashboard/catalogo",
         },
         {
-          title: "Editar",
+          title: "Detalhe do Produto",
           url: "#",
         },
         {
