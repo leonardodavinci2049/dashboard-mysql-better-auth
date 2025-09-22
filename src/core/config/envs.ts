@@ -35,9 +35,8 @@ const envsSchema = z.object({
   DB_MYSQL_PASSWORD: z.string().min(1, "DB_MYSQL_PASSWORD is required"),
   DB_MYSQL_DATABASE: z.string().min(1, "DB_MYSQL_DATABASE is required"),
 
-  AUTH_SECRET: z
-    .string()
-    .min(32, "AUTH_SECRET must be at least 32 characters long"),
+  BETTER_AUTH_URL: z.string().min(1, "BETTER_AUTH_URL is required"),
+
 });
 
 // Inferir o tipo automaticamente a partir do schema
@@ -74,7 +73,7 @@ if (typeof window === "undefined") {
     DB_MYSQL_USER: "",
     DB_MYSQL_PASSWORD: "",
     DB_MYSQL_DATABASE: "",
-    AUTH_SECRET: "",
+    BETTER_AUTH_URL: "",
   };
 }
 
@@ -91,5 +90,6 @@ export const envs = {
   DB_MYSQL_USER: envVars.DB_MYSQL_USER,
   DB_MYSQL_PASSWORD: envVars.DB_MYSQL_PASSWORD,
   DB_MYSQL_DATABASE: envVars.DB_MYSQL_DATABASE,
-  AUTH_SECRET: envVars.AUTH_SECRET,
+  BETTER_AUTH_URL: envVars.BETTER_AUTH_URL,
+
 };

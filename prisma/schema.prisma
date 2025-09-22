@@ -8,50 +8,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model account {
-  id                    String    @id
-  userId                String
-  type                  String
-  provider              String
-  providerAccountId     String
-  refresh_token         String?   @db.Text
-  access_token          String?   @db.Text
-  expires_at            Int?
-  token_type            String?
-  scope                 String?
-  id_token              String?   @db.Text
-  session_state         String?
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime
-  accountId             String    @db.Text
-  providerId            String    @db.Text
+model Account {
+  id                    String    @id @db.VarChar(255)
+  accountId             String    @db.VarChar(255)
+  providerId            String    @db.VarChar(255)
+  userId                String    @db.VarChar(255)
   accessToken           String?   @db.Text
   refreshToken          String?   @db.Text
   idToken               String?   @db.Text
   accessTokenExpiresAt  DateTime? @db.DateTime(0)
   refreshTokenExpiresAt DateTime? @db.DateTime(0)
-  password              String?   @db.Text
-  user                  user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scope                 String?   @db.VarChar(500)
+  password              String?   @db.VarChar(255)
+  createdAt             DateTime  @default(now()) @db.DateTime(0)
+  updatedAt             DateTime  @default(now()) @db.DateTime(0)
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_account_user")
 
-  @@unique([provider, providerAccountId])
-  @@unique([provider, providerAccountId], map: "account_provider_providerAccountId_unique")
   @@index([userId], map: "account_userId_fkey")
-}
-
-model session {
-  id           String   @id
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  ipAddress    String?
-  userAgent    String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime
-  expiresAt    DateTime @db.DateTime(0)
-  token        String?  @unique(map: "session_token_unique") @db.VarChar(255)
-  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId], map: "session_userId_fkey")
+  @@map("tbl_account")
 }
 
 model tbl_boleto_bancario {
@@ -2174,6 +2148,21 @@ model tbl_protocolo {
   @@index([ID_USUARIO], map: "tbl_protocolo_ID_USUARIO_IDX")
 }
 
+model Session {
+  id        String   @id @db.VarChar(255)
+  expiresAt DateTime @db.DateTime(0)
+  token     String   @unique(map: "session_token_unique") @db.VarChar(500)
+  createdAt DateTime @default(now()) @db.DateTime(0)
+  updatedAt DateTime @default(now()) @db.DateTime(0)
+  ipAddress String?  @db.VarChar(45)
+  userAgent String?  @db.Text
+  userId    String   @db.VarChar(255)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_session_user")
+
+  @@index([userId], map: "session_userId_fkey")
+  @@map("tbl_session")
+}
+
 model tbl_status {
   ID_TBL_STATUS     Int       @id @default(autoincrement())
   ID_SYSTEM_CLIENTE Int?      @default(0)
@@ -2673,35 +2662,27 @@ model tbl_transportadora {
   DT_UPDATE              DateTime? @db.Date
 }
 
-model user {
-  id            String    @id
-  name          String?
-  email         String    @unique
+model User {
+  id            String    @id @db.VarChar(255)
+  name          String    @db.VarChar(255)
+  email         String    @unique(map: "user_email_unique") @db.VarChar(255)
   emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime
-  role          String?   @default("user")
-  account       account[]
-  session       session[]
+  image         String?   @db.VarChar(500)
+  createdAt     DateTime  @default(now()) @db.DateTime(0)
+  updatedAt     DateTime  @default(now()) @db.DateTime(0)
+  accounts      Account[]
+  sessions      Session[]
+
+  @@map("tbl_user")
 }
 
-model verification {
-  id         String   @id @db.VarChar(255)
-  identifier String   @db.Text
-  value      String   @db.Text
-  expiresAt  DateTime @db.DateTime(0)
-  createdAt  DateTime @default(now()) @db.DateTime(0)
-  updatedAt  DateTime @default(now()) @db.DateTime(0)
-}
+model Verification {
+  id         String    @id @db.VarChar(255)
+  identifier String    @db.VarChar(255)
+  value      String    @db.VarChar(500)
+  expiresAt  DateTime  @db.DateTime(0)
+  createdAt  DateTime? @default(now()) @db.DateTime(0)
+  updatedAt  DateTime? @default(now()) @db.DateTime(0)
 
-model verification_token {
-  id         String   @id
-  identifier String
-  token      String   @unique
-  expires    DateTime
-  createdAt  DateTime @default(now())
-
-  @@unique([identifier, token])
-  @@unique([identifier, token], map: "verification_token_identifier_token_unique")
+  @@map("tbl_verification")
 }
