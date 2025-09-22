@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { SiteHeaderWithBreadcrumb } from "@/components/dashboard/site-header-with-breadcrumb";
-import { ProductFilters } from "../../../components/dashboard/product/catalog/ProductFilters";
-import { ProductGrid } from "../../../components/dashboard/product/catalog/ProductGrid";
-import { useProductFilter } from "../../../hooks/dashboard/product/catalog/useProductFilter";
+import { ProductFilters } from "../../../../components/dashboard/product/catalog/ProductFilters";
+import { ProductGrid } from "../../../../components/dashboard/product/catalog/ProductGrid";
+import { useProductFilter } from "../../../../hooks/dashboard/product/catalog/useProductFilter";
 import {
   mockProducts,
   mockCategories,
-} from "../../../mock/dashboard/mocked-statistics-data";
-import { ViewMode } from "../../../types/dashboard/product/catalog/types";
+} from "../../../../mock/dashboard/mocked-statistics-data";
+import { ViewMode } from "../../../../types/dashboard/product/catalog/types";
 
 export default function CatalogoPage() {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");

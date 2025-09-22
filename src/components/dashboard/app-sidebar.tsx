@@ -63,15 +63,15 @@ const data = {
       items: [
         {
           title: "Catalogo",
-          url: "/dashboard/catalogo",
+          url: "/dashboard/product/catalog",
         },
         {
           title: "Detalhe do Produto",
-          url: "#",
+          url: "/dashboard/product/product-details",
         },
         {
           title: "Novo Produto",
-          url: "#",
+          url: "/dashboard/product/new-product",
         },
       ],
     },
@@ -82,15 +82,15 @@ const data = {
       items: [
         {
           title: "Lista de Categorias",
-          url: "#",
+          url: "/dashboard/category/category-list",
         },
         {
-          title: "Editar Categorias",
-          url: "#",
+          title: "Detalhes da Categoria",
+          url: "/dashboard/category/category-details",
         },
         {
           title: "Nova Categoria",
-          url: "#",
+          url: "/dashboard/category/new-category",
         },
       ],
     },
@@ -101,19 +101,23 @@ const data = {
       items: [
         {
           title: "Lsita de Clientes",
-          url: "#",
+          url: "/dashboard/customer/customer-list",
         },
         {
-          title: "Editar Cliente",
-          url: "#",
+          title: "Detalhes do Cliente",
+          url: "/dashboard/customer/customer-details",
         },
         {
           title: "Novo Cliente",
-          url: "#",
+          url: "/dashboard/customer/new-customer",
         },
         {
           title: "Relatórios",
-          url: "#",
+          url: "/dashboard/customer/customer-reports",
+        },
+        {
+          title: "Cadastros Pendentes",
+          url: "/dashboard/customer/pending-registrations",
         },
       ],
     },
@@ -124,19 +128,19 @@ const data = {
       items: [
         {
           title: "Lista de Pedidos",
-          url: "#",
+          url: "/dashboard/orders/order-list",
         },
         {
           title: "Detalhes do Pedido",
-          url: "#",
+          url: "/dashboard/orders/order-details",
         },
         {
           title: "Relatórios de vendas",
-          url: "#",
+          url: "/dashboard/orders/sales-reports",
         },
         {
-          title: "Ultimos pedidos",
-          url: "#",
+          title: "Últimos pedidos",
+          url: "/dashboard/orders/latest-orders",
         },
       ],
     },
