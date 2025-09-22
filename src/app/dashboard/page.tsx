@@ -3,7 +3,7 @@ import { DataTable } from "@/components/dashboard/data-table";
 import { SectionCards } from "@/components/dashboard/section-cards";
 import { SiteHeaderWithBreadcrumb } from "@/components/dashboard/site-header-with-breadcrumb";
 
-import data from "./data.json";
+import data from "./data-statistics.json";
 
 export default function Page() {
   return (

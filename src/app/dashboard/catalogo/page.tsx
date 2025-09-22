@@ -1,6 +1,76 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { SiteHeaderWithBreadcrumb } from "@/components/dashboard/site-header-with-breadcrumb";
+import { ProductFilters } from "../../../components/dashboard/product/catalog/ProductFilters";
+import { ProductGrid } from "../../../components/dashboard/product/catalog/ProductGrid";
+import { useProductFilter } from "../../../hooks/dashboard/product/catalog/useProductFilter";
+import {
+  mockProducts,
+  mockCategories,
+} from "../../mock/dashboard/product/catalog/mock-data";
+import { ViewMode } from "../../../types/dashboard/product/catalog/types";
 
 export default function CatalogoPage() {
+  const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const {
+    filters,
+    updateFilters,
+    resetFilters,
+    paginatedProducts,
+    totalProducts,
+    displayedProducts,
+    hasMore,
+    isLoading,
+    loadMore,
+  } = useProductFilter({
+    products: mockProducts,
+    pageSize: 20,
+  });
+
+  const handleViewDetails = (productId: string) => {
+    // TODO: Implementar navegação para página de detalhes do produto
+    console.log("Visualizando detalhes do produto:", productId);
+  };
+
+  // Evitar erro de hidratação renderizando apenas após carregar no cliente
+  if (!isClient) {
+    return (
+      <>
+        <SiteHeaderWithBreadcrumb
+          title="Catálogo"
+          breadcrumbItems={[
+            { label: "Dashboard", href: "/dashboard" },
+            { label: "Produtos", href: "#" },
+            { label: "Catálogo", isActive: true },
+          ]}
+        />
+        <div className="flex flex-1 flex-col">
+          <div className="@container/main flex flex-1 flex-col gap-6">
+            <div className="flex flex-col gap-6 py-6">
+              <div className="px-4 lg:px-6">
+                <div className="space-y-6">
+                  <div>
+                    <h1 className="text-3xl font-bold">Catálogo de Produtos</h1>
+                    <p className="text-muted-foreground mt-2">
+                      Carregando catálogo...
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <SiteHeaderWithBreadcrumb
@@ -12,14 +82,41 @@ export default function CatalogoPage() {
         ]}
       />
       <div className="flex flex-1 flex-col">
-        <div className="@container/main flex flex-1 flex-col gap-2">
-          <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+        <div className="@container/main flex flex-1 flex-col gap-6">
+          <div className="flex flex-col gap-6 py-6">
             <div className="px-4 lg:px-6">
-              <h1 className="text-2xl font-bold">Catálogo de Produtos</h1>
-              <p className="text-muted-foreground">
-                Gerencie todos os produtos do seu catálogo aqui.
-              </p>
-              {/* Aqui você pode adicionar a tabela de produtos, filtros, etc. */}
+              <div className="space-y-6">
+                {/* Cabeçalho */}
+                <div>
+                  <h1 className="text-3xl font-bold">Catálogo de Produtos</h1>
+                  <p className="text-muted-foreground mt-2">
+                    Gerencie e visualize todos os produtos do seu catálogo com
+                    filtros avançados.
+                  </p>
+                </div>
+
+                {/* Filtros */}
+                <ProductFilters
+                  filters={filters}
+                  categories={mockCategories}
+                  viewMode={viewMode}
+                  onFiltersChange={updateFilters}
+                  onViewModeChange={setViewMode}
+                  onResetFilters={resetFilters}
+                  totalProducts={totalProducts}
+                  displayedProducts={displayedProducts}
+                />
+
+                {/* Grid de Produtos */}
+                <ProductGrid
+                  products={paginatedProducts}
+                  viewMode={viewMode}
+                  isLoading={isLoading}
+                  hasMore={hasMore}
+                  onLoadMore={loadMore}
+                  onViewDetails={handleViewDetails}
+                />
+              </div>
             </div>
           </div>
         </div>
