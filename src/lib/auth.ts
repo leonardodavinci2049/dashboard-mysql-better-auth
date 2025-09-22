@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import prisma from '@/lib/prisma'
+import { envs } from '@/core/config'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -8,6 +9,6 @@ export const auth = betterAuth({
   }),
     emailAndPassword: {
     enabled: true,
- trustedOrigins: ['http://localhost:5555'],
+ trustedOrigins: [envs.BETTER_AUTH_URL],
   },
 })
