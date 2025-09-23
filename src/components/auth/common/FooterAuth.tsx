@@ -9,7 +9,7 @@ import {
   MapPin,
 } from "lucide-react";
 
-export default function FooterCompact() {
+export default function FooterAuth() {
   return (
     <footer className="border-t border-gray-800 bg-gray-900 text-white">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
