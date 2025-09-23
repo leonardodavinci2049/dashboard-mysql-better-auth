@@ -1,52 +1,83 @@
 "use server";
-import { auth } from "@/lib/auth"
 
-import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-// Definir o tipo do estado
-type RegisterState = {
-  message: string;
-  success: boolean;
-} | null;
+export const getCurrentUser = async () => {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
 
+    if (!session) {
+        redirect("/login");
+    }
 
+    const currentUser ={}
 
-const loginAction = async (
-  _prevState: RegisterState,
-  formData: FormData
-): Promise<RegisterState> => {
+    if (!currentUser) {
+        redirect("/login");
+    }
 
-  
-  try {
+    return {
+        ...session,
+        currentUser
+    }
+}
 
+export const signIn = async () => {
+    try {
+        await auth.api.signInEmail({
+            body: {
+                email: "test@teste.com",
+                password: "password123",
+            }
+        })
 
-       await auth.api.signInEmail({
-        body: {
-            email: formData.get("email") as string,
-            password: formData.get("password") as string,
+        return {
+            success: true,
+            message: "Signed in successfully."
         }
-    })
+    } catch (error) {
+        const e = error as Error
 
-    return {  message: 'Login Success', success: true };
-
-  } catch (error) {
-      if (isRedirectError(error)){
-      throw error;
+        return {
+            success: false,
+            message: e.message || "An unknown error occurred."
+        }
     }
+}
 
-    if (
-      typeof error === "object" &&
-      error !== null &&
-      "type" in error &&
-      (error as { type?: string }).type === "CredentialsSignIn"
-    ) {
-      return { success: false, message: "Credenciais incorretas!" };
+export const signUp = async () => {
+    try {
+        await auth.api.signUpEmail({
+            body: {
+                email: "test@teste.com",
+                password: "password123",
+                name: "Test User"
+            }
+        })
+
+        return {
+            success: true,
+            message: "Signed up successfully."
+        }
+    } catch (error) {
+        const e = error as Error
+
+        return {
+            success: false,
+            message: e.message || "An unknown error occurred."
+        }
     }
+}
 
-    console.log(error)
-    return { success: false, message: "Oops, algum erro aconteceu!" };   
+export const getUsers = async () => {
+    try {
 
-  }
-};
-
-export default loginAction;
+        return null;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}

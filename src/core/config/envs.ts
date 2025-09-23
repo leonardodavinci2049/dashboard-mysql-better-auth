@@ -26,6 +26,19 @@ const envsSchema = z.object({
     .transform((val) => parseInt(val, 10))
     .pipe(z.number().positive("TYPE_BUSINESS must be a positive number")),
 
+  // Internacionalização (i18n)
+  DEFAULT_LOCALE: z
+    .string()
+    .regex(/^(pt|en)$/, "DEFAULT_LOCALE must be 'pt' or 'en'")
+    .default("pt"),
+  SUPPORTED_LOCALES: z
+    .string()
+    .regex(
+      /^(pt|en)(,(pt|en))*$/,
+      "SUPPORTED_LOCALES must be comma-separated list of 'pt' and/or 'en'",
+    )
+    .default("pt,en"),
+
   DB_MYSQL_HOST: z.string().min(1, "DB_MYSQL_HOST is required"),
   DB_MYSQL_PORT: z
     .string()
@@ -36,7 +49,6 @@ const envsSchema = z.object({
   DB_MYSQL_DATABASE: z.string().min(1, "DB_MYSQL_DATABASE is required"),
 
   BETTER_AUTH_URL: z.string().min(1, "BETTER_AUTH_URL is required"),
-
 });
 
 // Inferir o tipo automaticamente a partir do schema
@@ -68,6 +80,12 @@ if (typeof window === "undefined") {
     APP_ID: 0,
     TYPE_BUSINESS: 0,
 
+    // i18n - estas podem ser acessadas no cliente
+    DEFAULT_LOCALE: (process.env.NEXT_PUBLIC_DEFAULT_LOCALE || "pt") as
+      | "pt"
+      | "en",
+    SUPPORTED_LOCALES: process.env.NEXT_PUBLIC_SUPPORTED_LOCALES || "pt,en",
+
     DB_MYSQL_HOST: "",
     DB_MYSQL_PORT: 0,
     DB_MYSQL_USER: "",
@@ -85,11 +103,14 @@ export const envs = {
   APP_ID: envVars.APP_ID,
   TYPE_BUSINESS: envVars.TYPE_BUSINESS,
 
+  // i18n - Disponível tanto no servidor quanto no cliente
+  DEFAULT_LOCALE: envVars.DEFAULT_LOCALE,
+  SUPPORTED_LOCALES: envVars.SUPPORTED_LOCALES,
+
   DB_MYSQL_HOST: envVars.DB_MYSQL_HOST,
   DB_MYSQL_PORT: envVars.DB_MYSQL_PORT,
   DB_MYSQL_USER: envVars.DB_MYSQL_USER,
   DB_MYSQL_PASSWORD: envVars.DB_MYSQL_PASSWORD,
   DB_MYSQL_DATABASE: envVars.DB_MYSQL_DATABASE,
   BETTER_AUTH_URL: envVars.BETTER_AUTH_URL,
-
 };

@@ -1,42 +1,43 @@
 "use server";
 
-import { auth } from "@/lib/auth"
-// import { hashSync } from "bcrypt-ts";
+import { auth } from "@/lib/auth";
+import {
+  validateRegisterData,
+  errorMessages,
+  type RegisterFormData,
+} from "./validation";
 
 // Definir o tipo do estado
 type RegisterState = {
   message: string;
   success: boolean;
+  fieldErrors?: Record<string, string>;
 } | null;
-
-// Definir o tipo dos dados do formulário
-type RegisterFormData = {
-  name: string;
-  email: string;
-  password: string;
-};
 
 async function registerAction(
   _prevState: RegisterState,
-  formData: FormData
+  formData: FormData,
 ): Promise<RegisterState> {
   const entries = Array.from(formData.entries());
-  const data = Object.fromEntries(entries) as RegisterFormData;
+  const rawData = Object.fromEntries(entries);
 
-  // console.log("Form Data1:", data);
+  // Validação com Zod
+  const validationResult = validateRegisterData(rawData);
 
-  // Validação básica
-  if (!data.name || !data.email || !data.password) {
+  if (!validationResult.success) {
     return {
-      message: "Todos os campos são obrigatórios.",
+      message: "Por favor, corrija os erros abaixo:",
       success: false,
+      fieldErrors: validationResult.errors || {},
     };
   }
+
+  const data = validationResult.data as RegisterFormData;
 
   try {
     // Verificação de duplicidade no banco de dados
     const existingUser = {};
-/*     const existingUser = await cnxDataBase.user.findFirst({
+    /*     const existingUser = await cnxDataBase.user.findFirst({
       where: {
         email: data.email,
       },
@@ -44,31 +45,27 @@ async function registerAction(
 
     if (existingUser) {
       return {
-        message: "Este email já está cadastrado.",
+        message: errorMessages.emailExists,
         success: false,
       };
     }
 
-    // Hash da senha
-   // const hashedPassword = hashSync(data.password, 12);
-
-    // Criar usuário
- 
+    // Criar usuário usando BetterAuth
     await auth.api.signInEmail({
       body: {
-          email: data.email,
-          password: data.password,
-      }
-    })
+        email: data.email,
+        password: data.password,
+      },
+    });
 
     return {
-      message: "Usuário cadastrado com sucesso!",
+      message: errorMessages.registerSuccess,
       success: true,
     };
   } catch (error) {
     console.error("Erro no cadastro:", error);
     return {
-      message: "Erro interno do servidor. Tente novamente.",
+      message: errorMessages.serverError,
       success: false,
     };
   }

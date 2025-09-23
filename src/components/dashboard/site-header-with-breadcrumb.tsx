@@ -1,4 +1,3 @@
-
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
@@ -12,6 +11,7 @@ import {
 import { Suspense } from "react";
 import ModeToggle from "../header-01/mode-toggle";
 import { ThemeSelector } from "./theme-selector";
+import { LanguageSelectorHeader } from "@/components/ui/language-selector";
 
 interface SiteHeaderWithBreadcrumbProps {
   title?: string;
@@ -65,6 +65,7 @@ export function SiteHeaderWithBreadcrumb({
         {/* Title for smaller screens */}
         <h1 className="text-base font-medium md:hidden">{title}</h1>
         <div className="ml-auto flex items-center gap-2">
+          <LanguageSelectorHeader />
           <ThemeSelector />
           <Suspense>
             <ModeToggle />
