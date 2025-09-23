@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import genericService from "@/services/db/generic/generic.service";
+import genericService from "@/services/db-mysql2/generic/generic.service";
 
 /**
  * API route para testar procedures genéricas
