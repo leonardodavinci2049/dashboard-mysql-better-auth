@@ -1,9 +1,47 @@
-"use client";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function SignUpPage() {
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
+
+import Link from "next/link";
+
+import RegisterForm from "./register-form";
+
+const RegisterPage = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (session) {
+    return redirect("/dashboard");
+  }
+
   return (
-    <main className="max-w-md mx-auto p-6 space-y-4 text-white">
-      <h1 className="text-2xl font-bold">Sign Up</h1>
-    </main>
+    <>
+      <Card className="mt-12 w-full max-w-sm rounded-2xl">
+        <CardHeader>
+          <h2 className="text-xl font-bold">Cadastre-se</h2>
+          <CardDescription>Faça seu cadastro gratuitamente.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <RegisterForm />
+        </CardContent>
+      </Card>
+      <p className="text-muted-foreground mt-3 text-sm">
+        Já possui cadastro?{" "}
+        <Link className="text-gray-800 hover:underline" href="/login">
+          Faça o login
+        </Link>
+        .
+      </p>
+    </>
   );
-}
+};
+
+export default RegisterPage;

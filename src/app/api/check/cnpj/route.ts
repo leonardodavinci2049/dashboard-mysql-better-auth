@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import checkService from "@/services/db/check/check.service";
+import checkService from "@/services/db-mysql2/check/check.service";
 
 interface CheckResultData {
   ID_CHECK: number;
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Carregar valores das variáveis de ambiente
-    const requestData = {   
+    const requestData = {
       USER_ID: 1,
       TERM: body.TERM,
     };

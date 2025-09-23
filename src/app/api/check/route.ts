@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import checkService from "@/services/db/check/check.service";
+import checkService from "@/services/db-mysql2/check/check.service";
 
 export async function GET() {
   try {
