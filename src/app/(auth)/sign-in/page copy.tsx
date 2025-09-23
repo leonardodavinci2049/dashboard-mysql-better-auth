@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 
 import Link from "next/link";
-import LoginForm from "./login-form";
+//import LoginForm from "./login-form";
 
 
 export default async function LoginPage() {
@@ -33,7 +33,7 @@ export default async function LoginPage() {
           <CardDescription>Faça seu login com email e senha.</CardDescription>
         </CardHeader>
         <CardContent>
-          <LoginForm />
+    {/*       <LoginForm /> */}
         </CardContent>
       </Card>
       <p className="text-sm text-muted-foreground mt-3">

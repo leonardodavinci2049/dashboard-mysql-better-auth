@@ -1,48 +1,36 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import Image from "next/image";
+import { LoginForm } from "./login-form";
+import { Card } from "@/components/ui/card";
 
-import { redirect } from "next/navigation";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from "@/components/ui/card";
-
-import Link from "next/link";
-import LoginForm from "./login-form";
-
-
-export default async function LoginPage() {
-
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (session) {
-    return redirect("/dashboard");
-  }
-
-
+export default function LoginPage() {
   return (
-    <>
-      <Card className="max-w-sm w-full rounded-2xl mt-12">
-        <CardHeader>
-          <h2 className="text-xl font-bold">Boas Vindas</h2>
-          <CardDescription>Faça seu login com email e senha.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <LoginForm />
-        </CardContent>
+    <div className="flex items-center justify-center p-4">
+      {/* Card para telas grandes com formulário e imagem */}
+      <Card className="bg-card/50 hidden w-full max-w-5xl overflow-hidden border-0 shadow-2xl backdrop-blur-sm lg:grid lg:h-[600px] lg:grid-cols-2">
+        <div className="flex flex-col gap-4 p-6 md:p-10">
+          <div className="flex flex-1 items-center justify-center">
+            <div className="w-full max-w-sm">
+              <LoginForm />
+            </div>
+          </div>
+        </div>
+        <div className="p-6 md:p-10">
+          <div className="relative h-full w-full overflow-hidden rounded-lg">
+            <Image
+              src="/placeholder.svg"
+              alt="Dashboard Background"
+              fill
+              className="object-cover dark:brightness-[0.2] dark:grayscale"
+              priority
+            />
+          </div>
+        </div>
       </Card>
-      <p className="text-sm text-muted-foreground mt-3">
-        Não possui cadastro?{" "}
-        <Link className="text-gray-800 hover:underline" href="/cadastro">
-          Registre-se
-        </Link>
-        .
-      </p>
-    </>
+
+      {/* Formulário simples para telas menores */}
+      <div className="w-full max-w-sm lg:hidden">
+        <LoginForm />
+      </div>
+    </div>
   );
 }

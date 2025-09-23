@@ -28,160 +28,162 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-
-// This is sample data.
-const data = {
-  user: {
-    name: "Admin",
-    email: "admin@dashboard.com",
-    avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop&crop=face",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Produtos",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "Catalogo",
-          url: "/dashboard/product/catalog",
-        },
-        {
-          title: "Detalhe do Produto",
-          url: "/dashboard/product/product-details",
-        },
-        {
-          title: "Novo Produto",
-          url: "/dashboard/product/new-product",
-        },
-      ],
-    },
-    {
-      title: "Categorias",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Lista de Categorias",
-          url: "/dashboard/category/category-list",
-        },
-        {
-          title: "Detalhes da Categoria",
-          url: "/dashboard/category/category-details",
-        },
-        {
-          title: "Nova Categoria",
-          url: "/dashboard/category/new-category",
-        },
-      ],
-    },
-    {
-      title: "Clientes",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Lsita de Clientes",
-          url: "/dashboard/customer/customer-list",
-        },
-        {
-          title: "Detalhes do Cliente",
-          url: "/dashboard/customer/customer-details",
-        },
-        {
-          title: "Novo Cliente",
-          url: "/dashboard/customer/new-customer",
-        },
-        {
-          title: "Relatórios",
-          url: "/dashboard/customer/customer-reports",
-        },
-        {
-          title: "Cadastros Pendentes",
-          url: "/dashboard/customer/pending-registrations",
-        },
-      ],
-    },
-    {
-      title: "Pedidos",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "Lista de Pedidos",
-          url: "/dashboard/orders/order-list",
-        },
-        {
-          title: "Detalhes do Pedido",
-          url: "/dashboard/orders/order-details",
-        },
-        {
-          title: "Relatórios de vendas",
-          url: "/dashboard/orders/sales-reports",
-        },
-        {
-          title: "Últimos pedidos",
-          url: "/dashboard/orders/latest-orders",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: HelpCircle,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: Search,
-    },
-  ],
-};
+import { useTranslation } from "@/hooks/use-translation";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { t } = useTranslation();
+
+  // This is sample data.
+  const data = {
+    user: {
+      name: "Admin",
+      email: "admin@dashboard.com",
+      avatar:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop&crop=face",
+    },
+    teams: [
+      {
+        name: "Acme Inc",
+        logo: GalleryVerticalEnd,
+        plan: "Enterprise",
+      },
+      {
+        name: "Acme Corp.",
+        logo: AudioWaveform,
+        plan: "Startup",
+      },
+      {
+        name: "Evil Corp.",
+        logo: Command,
+        plan: "Free",
+      },
+    ],
+    navMain: [
+      {
+        title: t("dashboard.navigation.products"),
+        url: "#",
+        icon: SquareTerminal,
+        isActive: true,
+        items: [
+          {
+            title: "Catalogo",
+            url: "/dashboard/product/catalog",
+          },
+          {
+            title: "Detalhe do Produto",
+            url: "/dashboard/product/product-details",
+          },
+          {
+            title: "Novo Produto",
+            url: "/dashboard/product/new-product",
+          },
+        ],
+      },
+      {
+        title: t("dashboard.navigation.categories"),
+        url: "#",
+        icon: Bot,
+        items: [
+          {
+            title: "Lista de Categorias",
+            url: "/dashboard/category/category-list",
+          },
+          {
+            title: "Detalhes da Categoria",
+            url: "/dashboard/category/category-details",
+          },
+          {
+            title: "Nova Categoria",
+            url: "/dashboard/category/new-category",
+          },
+        ],
+      },
+      {
+        title: t("dashboard.navigation.customers"),
+        url: "#",
+        icon: BookOpen,
+        items: [
+          {
+            title: "Lsita de Clientes",
+            url: "/dashboard/customer/customer-list",
+          },
+          {
+            title: "Detalhes do Cliente",
+            url: "/dashboard/customer/customer-details",
+          },
+          {
+            title: "Novo Cliente",
+            url: "/dashboard/customer/new-customer",
+          },
+          {
+            title: "Relatórios",
+            url: "/dashboard/customer/customer-reports",
+          },
+          {
+            title: "Cadastros Pendentes",
+            url: "/dashboard/customer/pending-registrations",
+          },
+        ],
+      },
+      {
+        title: t("dashboard.navigation.orders"),
+        url: "#",
+        icon: Settings2,
+        items: [
+          {
+            title: "Lista de Pedidos",
+            url: "/dashboard/orders/order-list",
+          },
+          {
+            title: "Detalhes do Pedido",
+            url: "/dashboard/orders/order-details",
+          },
+          {
+            title: "Relatórios de vendas",
+            url: "/dashboard/orders/sales-reports",
+          },
+          {
+            title: "Últimos pedidos",
+            url: "/dashboard/orders/latest-orders",
+          },
+        ],
+      },
+    ],
+    projects: [
+      {
+        name: "Design Engineering",
+        url: "#",
+        icon: Frame,
+      },
+      {
+        name: "Sales & Marketing",
+        url: "#",
+        icon: PieChart,
+      },
+      {
+        name: "Travel",
+        url: "#",
+        icon: Map,
+      },
+    ],
+    navSecondary: [
+      {
+        title: t("dashboard.navigation.settings"),
+        url: "#",
+        icon: Settings2,
+      },
+      {
+        title: "Get Help",
+        url: "#",
+        icon: HelpCircle,
+      },
+      {
+        title: "Search",
+        url: "#",
+        icon: Search,
+      },
+    ],
+  };
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>

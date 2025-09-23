@@ -7,12 +7,12 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="flex min-h-screen flex-col">
       {/* Main Content */}
       <HeaderAuth />
 
       {/* Page Content */}
-      <div>{children}</div>
+      <div className="flex flex-1 items-center justify-center">{children}</div>
 
       {/* Footer */}
       <FooterAuth />
