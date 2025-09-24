@@ -171,6 +171,45 @@ export function validateRegisterData(data: unknown) {
 }
 
 /**
+ * Função utilitária para validar dados do formulário com confirmação de senha
+ * Retorna dados validados ou erros formatados
+ */
+export function validateRegisterWithConfirmData(data: unknown) {
+  try {
+    const validatedData = registerWithConfirmSchema.parse(data);
+    return {
+      success: true,
+      data: validatedData,
+      errors: null,
+    };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Formatar erros para exibição amigável
+      const formattedErrors = error.issues.reduce(
+        (acc: Record<string, string>, err) => {
+          const field = err.path[0] as string;
+          acc[field] = err.message;
+          return acc;
+        },
+        {},
+      );
+
+      return {
+        success: false,
+        data: null,
+        errors: formattedErrors,
+      };
+    }
+
+    return {
+      success: false,
+      data: null,
+      errors: { general: "Erro de validação inesperado." },
+    };
+  }
+}
+
+/**
  * Função para validar apenas um campo específico
  * Útil para validação em tempo real
  */

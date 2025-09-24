@@ -67,21 +67,38 @@ export const loginAction = async (
     console.error("Login error:", error);
 
     // Tratar erros específicos do Better-Auth
-    if (typeof error === "object" && error !== null && "message" in error) {
-      const errorMessage = (error as { message?: string }).message || "";
-
-      if (errorMessage.includes("Invalid email or password")) {
+    if (typeof error === "object" && error !== null) {
+      // Verificar se é um erro de API com status 401 (Unauthorized)
+      if (
+        "statusCode" in error &&
+        (error as { statusCode?: number }).statusCode === 401
+      ) {
         return {
           success: false,
           message: errorMessages.invalidCredentials,
         };
       }
 
-      if (errorMessage.includes("Account disabled")) {
-        return {
-          success: false,
-          message: errorMessages.accountDisabled,
-        };
+      // Verificar por mensagem de erro
+      if ("message" in error) {
+        const errorMessage = (error as { message?: string }).message || "";
+
+        if (
+          errorMessage.includes("Invalid email or password") ||
+          errorMessage.includes("User not found")
+        ) {
+          return {
+            success: false,
+            message: errorMessages.invalidCredentials,
+          };
+        }
+
+        if (errorMessage.includes("Account disabled")) {
+          return {
+            success: false,
+            message: errorMessages.accountDisabled,
+          };
+        }
       }
     }
 

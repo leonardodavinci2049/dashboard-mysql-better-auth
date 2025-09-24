@@ -40,6 +40,13 @@
       "hasAccount": "Já tem uma conta?",
       "signIn": "Faça login",
       "termsAndConditions": "Aceito os termos e condições",
+      "success": {
+        "title": "Cadastro Realizado com Sucesso!",
+        "subtitle": "Sua conta foi criada e está aguardando aprovação",
+        "message": "Você receberá uma notificação por email assim que sua conta for aprovada e liberada para acesso.",
+        "backToLogin": "Voltar para o Login",
+        "thankYou": "Obrigado por se cadastrar!"
+      },
       "errors": {
         "required": "Este campo é obrigatório",
         "invalidEmail": "Email inválido",

@@ -1,72 +1,141 @@
 "use server";
 
 import { auth } from "@/lib/auth";
+import prisma from "@/lib/prisma";
+import { redirect } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 import {
-  validateRegisterData,
+  validateRegisterWithConfirmData,
   errorMessages,
-  type RegisterFormData,
 } from "../_common-validations/validation";
 
-// Definir o tipo do estado
+// Definir o tipo do estado do formulário
 type RegisterState = {
-  message: string;
   success: boolean;
+  message: string;
   fieldErrors?: Record<string, string>;
 } | null;
 
+/**
+ * Server Action para registro de novo usuário
+ */
 async function registerAction(
   _prevState: RegisterState,
   formData: FormData,
 ): Promise<RegisterState> {
-  const entries = Array.from(formData.entries());
-  const rawData = Object.fromEntries(entries);
-
-  // Validação com Zod
-  const validationResult = validateRegisterData(rawData);
-
-  if (!validationResult.success) {
-    return {
-      message: "Por favor, corrija os erros abaixo:",
-      success: false,
-      fieldErrors: validationResult.errors || {},
-    };
-  }
-
-  const data = validationResult.data as RegisterFormData;
-
   try {
-    // Verificação de duplicidade no banco de dados
-    const existingUser = {};
-    /*     const existingUser = await cnxDataBase.user.findFirst({
-      where: {
-        email: data.email,
-      },
-    }); */
+    // Extrair dados do FormData
+    const rawData = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      confirmPassword: formData.get("confirmPassword") as string,
+    };
 
-    if (existingUser) {
+    // Validar dados com Zod
+    const validationResult = validateRegisterWithConfirmData(rawData);
+
+    if (!validationResult.success) {
       return {
-        message: errorMessages.emailExists,
         success: false,
+        message: "Dados inválidos. Verifique os campos e tente novamente.",
+        fieldErrors: validationResult.errors || {},
       };
     }
 
-    // Criar usuário usando BetterAuth
-    await auth.api.signInEmail({
-      body: {
-        email: data.email,
-        password: data.password,
+    // Garantir que os dados validados existem
+    if (!validationResult.data) {
+      return {
+        success: false,
+        message: "Erro na validação dos dados.",
+      };
+    }
+
+    const { name, email, password } = validationResult.data;
+
+    // Verificar se o email já existe no banco de dados
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        email: email,
       },
     });
 
-    return {
-      message: errorMessages.registerSuccess,
-      success: true,
-    };
+    if (existingUser) {
+      return {
+        success: false,
+        message: errorMessages.emailExists,
+      };
+    }
+
+    // Criar usuário usando Better-Auth
+    await auth.api.signUpEmail({
+      body: {
+        name,
+        email,
+        password,
+      },
+    });
+
+    // Se chegou até aqui, o registro foi bem-sucedido
+    // Redirecionar para a página de sucesso ao invés do dashboard
+    redirect("/sign-in/success?success=true");
   } catch (error) {
-    console.error("Erro no cadastro:", error);
+    // Tratar erro de redirect (esperado após registro bem-sucedido)
+    if (isRedirectError(error)) {
+      throw error;
+    }
+
+    console.error("Erro no registro:", error);
+
+    // Tratar erros específicos do Better-Auth
+    if (typeof error === "object" && error !== null) {
+      // Verificar se é erro de email duplicado (caso não detectado na verificação prévia)
+      if ("message" in error) {
+        const errorMessage = (error as { message?: string }).message || "";
+
+        if (
+          errorMessage.includes("already exists") ||
+          errorMessage.includes("duplicate") ||
+          errorMessage.includes("unique constraint")
+        ) {
+          return {
+            success: false,
+            message: errorMessages.emailExists,
+          };
+        }
+
+        if (errorMessage.includes("validation")) {
+          return {
+            success: false,
+            message: "Dados inválidos. Verifique os campos e tente novamente.",
+          };
+        }
+      }
+
+      // Verificar se é erro com statusCode
+      if ("statusCode" in error) {
+        const statusCode = (error as { statusCode?: number }).statusCode;
+
+        if (statusCode === 400) {
+          return {
+            success: false,
+            message: "Dados inválidos. Verifique os campos e tente novamente.",
+          };
+        }
+
+        if (statusCode === 409) {
+          return {
+            success: false,
+            message: errorMessages.emailExists,
+          };
+        }
+      }
+    }
+
+    // Erro genérico
     return {
-      message: errorMessages.serverError,
       success: false,
+      message: errorMessages.serverError,
     };
   }
 }
