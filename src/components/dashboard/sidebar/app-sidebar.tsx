@@ -16,11 +16,11 @@ import {
   SquareTerminal,
 } from "lucide-react";
 
-import { NavMain } from "@/components/dashboard/common/sidebar/nav-main";
-import { NavProjects } from "@/components/dashboard/common/sidebar/nav-projects";
-import { NavSecondary } from "@/components/dashboard/common/sidebar/nav-secondary";
-import { NavUser } from "@/components/dashboard/common/sidebar/nav-user";
-import { TeamSwitcher } from "@/components/dashboard/common/sidebar/team-switcher";
+import { NavMain } from "@/components/dashboard/sidebar/components/nav-main";
+import { NavProjects } from "@/components/dashboard/sidebar/components/nav-projects";
+import { NavSecondary } from "@/components/dashboard/sidebar/components/nav-secondary";
+import { NavUser } from "@/components/dashboard/sidebar/components/nav-user";
+import { TeamSwitcher } from "@/components/dashboard/sidebar/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
