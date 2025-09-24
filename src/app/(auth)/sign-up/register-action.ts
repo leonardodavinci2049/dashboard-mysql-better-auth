@@ -5,7 +5,7 @@ import {
   validateRegisterData,
   errorMessages,
   type RegisterFormData,
-} from "./validation";
+} from "../_common-validations/validation";
 
 // Definir o tipo do estado
 type RegisterState = {
