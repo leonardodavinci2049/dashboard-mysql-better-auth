@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ForgotPasswordForm from "./ForgotPasswordForm";
-
+import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Forgot password",
@@ -8,16 +8,13 @@ export const metadata: Metadata = {
 
 export default function ForgotPasswordPage() {
   return (
-    <main className="flex min-h-svh items-center justify-center px-4">
-      <div className="space-y-6 w-full">
-        <div className="space-y-2 text-center">
-          <h1 className="text-2xl font-semibold">Forgot password</h1>
-          <p className="text-muted-foreground">
-            Enter your email address and we&apos;ll send you a link to reset
-            your password.
-          </p>
-        </div>
-        <ForgotPasswordForm />
+    <main className="from-muted/30 via-background to-muted/50 flex min-h-svh items-center justify-center bg-gradient-to-br px-4">
+      <div className="w-full max-w-md">
+        <Card className="border-border/50 bg-card/95 shadow-2xl backdrop-blur-sm">
+          <CardContent className="p-8">
+            <ForgotPasswordForm />
+          </CardContent>
+        </Card>
       </div>
     </main>
   );

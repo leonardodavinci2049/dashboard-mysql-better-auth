@@ -18,9 +18,6 @@ import GoogleButton from "../components/GoogleButton";
 // Estado inicial do formulário
 const initialState = null;
 
-
-
-
 export function LoginForm({
   className,
   ...props
@@ -68,15 +65,7 @@ export function LoginForm({
           </div>
 
           <div className="grid gap-3">
-            <div className="flex items-center">
-              <Label htmlFor="password">{t("auth.login.password")}</Label>
-              <a
-                href="/forgot-password"
-                className="ml-auto text-sm underline-offset-4 hover:underline"
-              >
-                {t("auth.login.forgotPassword")}
-              </a>
-            </div>
+            <Label htmlFor="password">{t("auth.login.password")}</Label>
             <Input
               id="password"
               name="password"
@@ -94,6 +83,14 @@ export function LoginForm({
                 {state.errors.password}
               </p>
             )}
+            <div className="text-right">
+              <a
+                href="/forgot-password"
+                className="text-muted-foreground hover:text-foreground text-sm underline-offset-4 hover:underline"
+              >
+                {t("auth.login.forgotPassword")}
+              </a>
+            </div>
           </div>
 
           <SubmitButton />
