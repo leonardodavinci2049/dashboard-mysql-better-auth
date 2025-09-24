@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { SiteHeaderWithBreadcrumb } from "@/components/dashboard/site-header-with-breadcrumb";
+
 import { ProductFilters } from "../../../../components/dashboard/product/catalog/ProductFilters";
 import { ProductGrid } from "../../../../components/dashboard/product/catalog/ProductGrid";
 import { useProductFilter } from "../../../../hooks/dashboard/product/catalog/useProductFilter";
@@ -10,6 +10,7 @@ import {
   mockCategories,
 } from "../../../../mock/dashboard/mocked-statistics-data";
 import { ViewMode } from "../../../../types/dashboard/product/catalog/types";
+import { SiteHeaderWithBreadcrumb } from "@/components/dashboard/header/site-header-with-breadcrumb";
 
 export default function CatalogoPage() {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");

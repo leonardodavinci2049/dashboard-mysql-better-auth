@@ -1,5 +1,5 @@
 import { ActiveThemeProvider } from "@/components/dashboard/active-theme";
-import { AppSidebar } from "@/components/dashboard/app-sidebar";
+import { AppSidebar } from "@/components/dashboard/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { cookies } from "next/headers";

@@ -1,7 +1,8 @@
 import { ChartAreaInteractive } from "@/components/dashboard/chart-area-interactive";
 import { DataTable } from "@/components/dashboard/data-table";
+import { SiteHeaderWithBreadcrumb } from "@/components/dashboard/header/site-header-with-breadcrumb";
 import { SectionCards } from "@/components/dashboard/section-cards";
-import { SiteHeaderWithBreadcrumb } from "@/components/dashboard/site-header-with-breadcrumb";
+
 
 import data from "@/mock/dashboard/mocked-product-data.json";
 
