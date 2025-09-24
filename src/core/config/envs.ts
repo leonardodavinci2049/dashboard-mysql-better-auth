@@ -49,6 +49,10 @@ const envsSchema = z.object({
   DB_MYSQL_DATABASE: z.string().min(1, "DB_MYSQL_DATABASE is required"),
 
   BETTER_AUTH_URL: z.string().min(1, "BETTER_AUTH_URL is required"),
+
+  // Google OAuth
+  GOOGLE_CLIENT_ID: z.string().min(1, "GOOGLE_CLIENT_ID is required"),
+  GOOGLE_CLIENT_SECRET: z.string().min(1, "GOOGLE_CLIENT_SECRET is required"),
 });
 
 // Inferir o tipo automaticamente a partir do schema
@@ -92,6 +96,10 @@ if (typeof window === "undefined") {
     DB_MYSQL_PASSWORD: "",
     DB_MYSQL_DATABASE: "",
     BETTER_AUTH_URL: "",
+
+    // Google OAuth - não devem ser acessadas no cliente
+    GOOGLE_CLIENT_ID: "",
+    GOOGLE_CLIENT_SECRET: "",
   };
 }
 
@@ -113,4 +121,8 @@ export const envs = {
   DB_MYSQL_PASSWORD: envVars.DB_MYSQL_PASSWORD,
   DB_MYSQL_DATABASE: envVars.DB_MYSQL_DATABASE,
   BETTER_AUTH_URL: envVars.BETTER_AUTH_URL,
+
+  // Google OAuth
+  GOOGLE_CLIENT_ID: envVars.GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: envVars.GOOGLE_CLIENT_SECRET,
 };
