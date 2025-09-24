@@ -9,10 +9,9 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Suspense } from "react";
-import ModeToggle from "../header-01/mode-toggle";
-import { ThemeSelector } from "./theme-selector";
-import { LanguageSelectorHeader } from "@/components/ui/language-selector";
+
 import { LogoutEverywhereButton } from "@/app/(auth)/logout/logout-everywhere-button";
+import ModeToggle from "@/components/header-01/mode-toggle";
 
 interface SiteHeaderWithBreadcrumbProps {
   title?: string;
@@ -66,8 +65,6 @@ export function SiteHeaderWithBreadcrumb({
         {/* Title for smaller screens */}
         <h1 className="text-base font-medium md:hidden">{title}</h1>
         <div className="ml-auto flex items-center gap-2">
-          <LanguageSelectorHeader />
-          <ThemeSelector />
           <Suspense>
             <ModeToggle />
           </Suspense>

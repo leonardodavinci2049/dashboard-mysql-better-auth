@@ -169,7 +169,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     navSecondary: [
       {
         title: t("dashboard.navigation.settings"),
-        url: "#",
+        url: "/dashboard/settings",
         icon: Settings2,
       },
       {
@@ -183,6 +183,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: Search,
       },
     ],
+     
   };
   return (
     <Sidebar collapsible="icon" {...props}>
