@@ -9,6 +9,7 @@
       "passwordPlaceholder": "Enter your password",
       "forgotPassword": "Forgot your password?",
       "loginButton": "Login",
+      "loggingIn": "Logging in...",
       "loginWithGoogle": "Login with Google",
       "orContinueWith": "Or continue with",
       "noAccount": "Don't have an account?",
@@ -38,7 +39,14 @@
       "createAccount": "Create Account",
       "hasAccount": "Already have an account?",
       "signIn": "Sign in",
-      "termsAndConditions": "I agree to the terms and conditions",
+      "termsAndConditions": "I accept the terms and conditions",
+      "success": {
+        "title": "Registration Successful!",
+        "subtitle": "Your account has been created and is awaiting approval",
+        "message": "You will receive an email notification as soon as your account is approved and ready for access.",
+        "backToLogin": "Back to Login",
+        "thankYou": "Thank you for registering!"
+      },
       "errors": {
         "required": "This field is required",
         "invalidEmail": "Invalid email",

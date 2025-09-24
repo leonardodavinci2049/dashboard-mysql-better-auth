@@ -1,6 +1,30 @@
 import { z } from "zod";
 
 /**
+ * Schema de validação para o formulário de login
+ * Inclui validações básicas para email e senha
+ */
+export const loginSchema = z.object({
+  email: z
+    .string({ message: "O email é obrigatório." })
+    .min(1, "O email é obrigatório.")
+    .email("Por favor, insira um email válido.")
+    .max(255, "O email deve ter no máximo 255 caracteres.")
+    .toLowerCase()
+    .transform((email) => email.trim()),
+
+  password: z
+    .string({ message: "A senha é obrigatória." })
+    .min(1, "A senha é obrigatória.")
+    .max(128, "A senha deve ter no máximo 128 caracteres."),
+});
+
+/**
+ * Tipo TypeScript inferido do schema de login
+ */
+export type LoginFormData = z.infer<typeof loginSchema>;
+
+/**
  * Schema de validação para o formulário de cadastro
  * Inclui validações robustas com mensagens amigáveis em português
  */
@@ -69,12 +93,90 @@ export type RegisterWithConfirmFormData = z.infer<
 >;
 
 /**
+ * Função utilitária para validar dados do formulário de login
+ * Retorna dados validados ou erros formatados
+ */
+export function validateLoginData(data: unknown) {
+  try {
+    const validatedData = loginSchema.parse(data);
+    return {
+      success: true,
+      data: validatedData,
+      errors: null,
+    };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Formatar erros para exibição amigável
+      const formattedErrors = error.issues.reduce(
+        (acc: Record<string, string>, err) => {
+          const field = err.path[0] as string;
+          acc[field] = err.message;
+          return acc;
+        },
+        {},
+      );
+
+      return {
+        success: false,
+        data: null,
+        errors: formattedErrors,
+      };
+    }
+
+    return {
+      success: false,
+      data: null,
+      errors: { general: "Erro de validação inesperado." },
+    };
+  }
+}
+
+/**
  * Função utilitária para validar dados do formulário
  * Retorna dados validados ou erros formatados
  */
 export function validateRegisterData(data: unknown) {
   try {
     const validatedData = registerSchema.parse(data);
+    return {
+      success: true,
+      data: validatedData,
+      errors: null,
+    };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Formatar erros para exibição amigável
+      const formattedErrors = error.issues.reduce(
+        (acc: Record<string, string>, err) => {
+          const field = err.path[0] as string;
+          acc[field] = err.message;
+          return acc;
+        },
+        {},
+      );
+
+      return {
+        success: false,
+        data: null,
+        errors: formattedErrors,
+      };
+    }
+
+    return {
+      success: false,
+      data: null,
+      errors: { general: "Erro de validação inesperado." },
+    };
+  }
+}
+
+/**
+ * Função utilitária para validar dados do formulário com confirmação de senha
+ * Retorna dados validados ou erros formatados
+ */
+export function validateRegisterWithConfirmData(data: unknown) {
+  try {
+    const validatedData = registerWithConfirmSchema.parse(data);
     return {
       success: true,
       data: validatedData,
@@ -152,9 +254,10 @@ export const errorMessages = {
   emailExists:
     "Este email já está cadastrado. Tente fazer login ou use outro email.",
 
-  // Erros de autenticação
+  // Erros de autenticação/login
   invalidCredentials: "Email ou senha incorretos.",
   accountDisabled: "Conta desabilitada. Entre em contato com o suporte.",
+  loginSuccess: "Login realizado com sucesso!",
 
   // Sucesso
   registerSuccess: "Conta criada com sucesso! Bem-vindo(a)!",

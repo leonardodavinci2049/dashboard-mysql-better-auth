@@ -11,7 +11,7 @@ import {
 
 import Link from "next/link";
 
-import RegisterForm from "./register-form";
+import RegisterForm from "./RegisterForm";
 
 const RegisterPage = async () => {
 /*   const session = await auth.api.getSession({

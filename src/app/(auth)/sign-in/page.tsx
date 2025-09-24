@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { LoginForm } from "./login-form";
+import { LoginForm } from "./LoginForm";
 import { Card } from "@/components/ui/card";
 
 export default function LoginPage() {
