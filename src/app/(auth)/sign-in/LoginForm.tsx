@@ -14,7 +14,6 @@ import { loginAction } from "./login-action";
 
 import SubmitButton from "../components/SubmitButton";
 import GoogleButton from "../components/GoogleButton";
-import { authClient } from "@/lib/auth-client";
 
 // Estado inicial do formulário
 const initialState = null;

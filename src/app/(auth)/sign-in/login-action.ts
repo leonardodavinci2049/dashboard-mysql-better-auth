@@ -7,7 +7,6 @@ import {
   validateLoginData,
   errorMessages,
 } from "../_common-validations/validation";
-import { authClient } from "@/lib/auth-client";
 
 // Definir o tipo do estado do formulário
 type LoginState = {
@@ -107,38 +106,6 @@ export const loginAction = async (
     return {
       success: false,
       message: errorMessages.serverError,
-    };
-  }
-};
-
-/**
- * Server Action para autenticação com Google OAuth
- */
-export const loginGoogleAction = async (): Promise<LoginState> => {
-  try {
-
-       await authClient.signIn.social({
-        provider: "google",
-        callbackURL: `/dashboard`,
-      });
-
- 
-
-    // Para OAuth, normalmente há um redirect automático
-    return {
-      success: true,
-      message: "Redirecionando para Google...",
-    };
-  } catch (error) {
-    if (isRedirectError(error)) {
-      throw error;
-    }
-
-    console.error("Google login error:", error);
-
-    return {
-      success: false,
-      message: "Erro ao conectar com Google. Tente novamente.",
     };
   }
 };
