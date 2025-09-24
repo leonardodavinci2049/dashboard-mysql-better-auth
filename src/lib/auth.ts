@@ -13,5 +13,11 @@ export const auth = betterAuth({
     trustedOrigins: [envs.BETTER_AUTH_URL],
   },
 
+  socialProviders: {
+    google: {
+      clientId: envs.GOOGLE_CLIENT_ID,
+      clientSecret: envs.GOOGLE_CLIENT_SECRET,
+    },
+  },
   plugins: [nextCookies()],
 });

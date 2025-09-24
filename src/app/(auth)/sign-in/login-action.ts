@@ -110,35 +110,4 @@ export const loginAction = async (
   }
 };
 
-/**
- * Server Action para autenticação com Google OAuth
- */
-export const loginGoogleAction = async (): Promise<LoginState> => {
-  try {
-    await auth.api.signInSocial({
-      body: {
-        provider: "google",
-        callbackURL: "/dashboard",
-      },
-    });
-
-    // Para OAuth, normalmente há um redirect automático
-    return {
-      success: true,
-      message: "Redirecionando para Google...",
-    };
-  } catch (error) {
-    if (isRedirectError(error)) {
-      throw error;
-    }
-
-    console.error("Google login error:", error);
-
-    return {
-      success: false,
-      message: "Erro ao conectar com Google. Tente novamente.",
-    };
-  }
-};
-
 export default loginAction;

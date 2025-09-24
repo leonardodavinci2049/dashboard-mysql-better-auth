@@ -12,6 +12,7 @@ import { Suspense } from "react";
 import ModeToggle from "../header-01/mode-toggle";
 import { ThemeSelector } from "./theme-selector";
 import { LanguageSelectorHeader } from "@/components/ui/language-selector";
+import { LogoutEverywhereButton } from "@/app/(auth)/logout/logout-everywhere-button";
 
 interface SiteHeaderWithBreadcrumbProps {
   title?: string;
@@ -70,6 +71,7 @@ export function SiteHeaderWithBreadcrumb({
           <Suspense>
             <ModeToggle />
           </Suspense>
+          <LogoutEverywhereButton />
         </div>
       </div>
     </header>
