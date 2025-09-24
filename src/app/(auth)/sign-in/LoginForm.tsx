@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useId } from "react";
 
 import { toast } from "sonner";
 import Form from "next/form";
@@ -25,6 +25,9 @@ export function LoginForm({
   const { t } = useTranslation();
   const [state, formAction] = useActionState(loginAction, initialState);
 
+  // Gerar ID único para cada instância do componente usando useId (SSR-safe)
+  const formId = useId();
+
   // Efeito para mostrar toast com base no estado
   useEffect(() => {
     if (state?.success) {
@@ -46,9 +49,9 @@ export function LoginForm({
       <div className="grid gap-6">
         <Form action={formAction} className="grid gap-6">
           <div className="grid gap-3">
-            <Label htmlFor="email">{t("auth.login.email")}</Label>
+            <Label htmlFor={`email-${formId}`}>{t("auth.login.email")}</Label>
             <Input
-              id="email"
+              id={`email-${formId}`}
               name="email"
               type="email"
               placeholder={t("auth.login.emailPlaceholder")}
@@ -65,9 +68,11 @@ export function LoginForm({
           </div>
 
           <div className="grid gap-3">
-            <Label htmlFor="password">{t("auth.login.password")}</Label>
+            <Label htmlFor={`password-${formId}`}>
+              {t("auth.login.password")}
+            </Label>
             <Input
-              id="password"
+              id={`password-${formId}`}
               name="password"
               type="password"
               placeholder={t("auth.login.passwordPlaceholder")}

@@ -82,7 +82,7 @@ export class I18nConfig {
    */
   static logConfig() {
     if (process.env.NODE_ENV === "development") {
-      console.log("🌍 i18n Configuration:");
+/*       console.log("🌍 i18n Configuration:");
       console.log(`  Default Locale: ${this.defaultLocale}`);
       console.log(`  Supported Locales: ${this.supportedLocales.join(", ")}`);
       console.log(`  Environment Variables:`);
@@ -91,7 +91,7 @@ export class I18nConfig {
       );
       console.log(
         `    NEXT_PUBLIC_SUPPORTED_LOCALES: ${process.env.NEXT_PUBLIC_SUPPORTED_LOCALES}`,
-      );
+      ); */
     }
   }
 }
