@@ -7,6 +7,7 @@ import {
   validateLoginData,
   errorMessages,
 } from "../_common-validations/validation";
+import { authClient } from "@/lib/auth-client";
 
 // Definir o tipo do estado do formulário
 type LoginState = {
@@ -115,12 +116,13 @@ export const loginAction = async (
  */
 export const loginGoogleAction = async (): Promise<LoginState> => {
   try {
-    await auth.api.signInSocial({
-      body: {
+
+       await authClient.signIn.social({
         provider: "google",
-        callbackURL: "/dashboard",
-      },
-    });
+        callbackURL: `/dashboard`,
+      });
+
+ 
 
     // Para OAuth, normalmente há um redirect automático
     return {

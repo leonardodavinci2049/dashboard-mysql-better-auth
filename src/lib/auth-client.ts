@@ -8,3 +8,9 @@ export const authClient = createAuthClient({
     /** The base URL of the server (optional if you're using the same domain) */
     baseURL: envs.BETTER_AUTH_URL
 })
+
+export const signIn = async () => {
+  const data = await authClient.signIn.social({
+    provider: "google",
+  });
+};
